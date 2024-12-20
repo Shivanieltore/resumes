@@ -1,0 +1,27 @@
+.app {
+  font-family: Arial, sans-serif;
+  background-color: #f8e5cb;
+  color: #933b35;
+  min-height: 100vh;
+}
+
+.content {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+
+
