@@ -8,11 +8,11 @@ function Templates() {
     email: "",
     phone: "",
     address: "",
-    experince:"",
+    experience:"",
     linkedin: "",
     github: "",
     bio: "",
-    achievement:"",
+    achievements:"",
   });
 
   const handleChange = (e) => {
@@ -36,7 +36,7 @@ function Templates() {
             new Paragraph(`LinkedIn: ${formData.linkedin}`),
             new Paragraph(`GitHub: ${formData.github}`),
             new Paragraph(`Bio: ${formData.bio}`),
-            new Paragraph(`Achievements: ${formData.achievement}`),
+            new Paragraph(`Achievements: ${formData.achievements}`),
           ],
         },
       ],
@@ -132,11 +132,11 @@ return (
         ></textarea>
       </label>
       <label>
-        achievement:
+        Achievements:
         <textarea
         type="text"
-        name="achievement"
-        value={formData.achievement}
+        name="achievements"
+        value={formData.achievements}
         onChange={handleChange}
         placeholder="mention your achievement"
         ></textarea>
@@ -163,6 +163,10 @@ return (
         {formData.address || "Your address will appear here"}
       </p>
       <p>
+        <strong>Work Experience</strong>{" "}
+        {formData.experience || "Your work experience will appear here"}
+      </p>
+      <p>
         <strong>LinkedIn:</strong>{" "}
         {formData.linkedin || "Your LinkedIn profile will appear here"}
       </p>
@@ -172,6 +176,10 @@ return (
       </p>
       <p>
         <strong>Bio:</strong> {formData.bio || "Your bio will appear here"}
+      </p>
+      <p>
+        <strong>Achievements</strong>{" "}
+        {formData.achievements || "Your achievements will appear here"}
       </p>
     </div>
   </div>
