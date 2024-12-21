@@ -8,9 +8,11 @@ function Templates() {
     email: "",
     phone: "",
     address: "",
+    workexperince:"",
     linkedin: "",
     github: "",
     bio: "",
+    achievement:"",
   });
 
   const handleChange = (e) => {
@@ -30,9 +32,11 @@ function Templates() {
             new Paragraph(`Email: ${formData.email}`),
             new Paragraph(`Phone: ${formData.phone}`),
             new Paragraph(`Address: ${formData.address}`),
+            new Paragraph(`Work Experience: ${formData.workexperience}`),
             new Paragraph(`LinkedIn: ${formData.linkedin}`),
             new Paragraph(`GitHub: ${formData.github}`),
             new Paragraph(`Bio: ${formData.bio}`),
+            new Paragraph(`Achievements: ${formData.achievement}`),
           ],
         },
       ],
@@ -88,6 +92,15 @@ return (
         />
       </label>
       <label>
+        Work Experience:
+        <textarea
+          name="workexperience"
+          value={formData.workexperience}
+          onChange={handleChange}
+          placeholder="Any Work Experience?"
+        ></textarea>
+      </label>
+      <label>
         LinkedIn:
         <input
           type="url"
@@ -97,6 +110,7 @@ return (
           placeholder="Enter your LinkedIn profile URL"
         />
       </label>
+      <br></br>
       <label>
         GitHub:
         <input
@@ -114,6 +128,15 @@ return (
           value={formData.bio}
           onChange={handleChange}
           placeholder="Write a short bio"
+        ></textarea>
+      </label>
+      <label>
+        achievement:
+        <textarea
+        name="achievement"
+        value={formData.achievement}
+        onChange={handleChange}
+        placeholder="mention your achievement"
         ></textarea>
       </label>
     </form>
