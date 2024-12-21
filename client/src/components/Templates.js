@@ -1,3 +1,42 @@
+import React, { useState } from "react";
+import { Packer, Document, Paragraph } from "docx";
+import { saveAs } from "file-saver";
+
+function Templates() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    linkedin: "",
+    github: "",
+    bio: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleDownloadDocx = () => {
+    const doc = new Document({
+      sections: [
+        {
+          children: [
+            new Paragraph(`Name: ${formData.name}`),
+            new Paragraph(`Email: ${formData.email}`),
+            new Paragraph(`Phone: ${formData.phone}`),
+            new Paragraph(`Address: ${formData.address}`),
+            new Paragraph(`LinkedIn: ${formData.linkedin}`),
+            new Paragraph(`GitHub: ${formData.github}`),
+            new Paragraph(`Bio: ${formData.bio}`),
+          ],
+        },
+      ],
+    });
 Packer.toBlob(doc).then((blob) => {
   saveAs(blob, "ResumePreview.docx");
 });
