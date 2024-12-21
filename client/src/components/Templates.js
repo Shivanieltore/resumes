@@ -8,7 +8,7 @@ function Templates() {
     email: "",
     phone: "",
     address: "",
-    workexperince:"",
+    experince:"",
     linkedin: "",
     github: "",
     bio: "",
@@ -32,7 +32,7 @@ function Templates() {
             new Paragraph(`Email: ${formData.email}`),
             new Paragraph(`Phone: ${formData.phone}`),
             new Paragraph(`Address: ${formData.address}`),
-            new Paragraph(`Work Experience: ${formData.workexperience}`),
+            new Paragraph(`Work Experience: ${formData.experience}`),
             new Paragraph(`LinkedIn: ${formData.linkedin}`),
             new Paragraph(`GitHub: ${formData.github}`),
             new Paragraph(`Bio: ${formData.bio}`),
@@ -94,8 +94,9 @@ return (
       <label>
         Work Experience:
         <textarea
-          name="workexperience"
-          value={formData.workexperience}
+          type="text"
+          name="experience"
+          value={formData.experience}
           onChange={handleChange}
           placeholder="Any Work Experience?"
         ></textarea>
@@ -133,6 +134,7 @@ return (
       <label>
         achievement:
         <textarea
+        type="text"
         name="achievement"
         value={formData.achievement}
         onChange={handleChange}
