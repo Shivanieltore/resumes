@@ -93,13 +93,13 @@ return (
       </label>
       <label>
         Work Experience:
-        <textarea
+        <input
           type="text"
           name="experience"
           value={formData.experience}
           onChange={handleChange}
           placeholder="Any Work Experience?"
-        ></textarea>
+        />
       </label>
       <label>
         LinkedIn:
