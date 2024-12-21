@@ -33,7 +33,7 @@
   /* Style the labels inside the paragraph for emphasis */
   .preview-container p strong {
     font-weight: bold;
-    color: #007bff;
+    color: #933b35;
     font-size: 18px;
   }
   
@@ -57,7 +57,7 @@
     font-size: 16px;
     font-weight: bold;
     color: #fff;
-    background-color: #007bff;
+    background-color: #933b35;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -68,7 +68,7 @@
   }
   
   .download-btn:hover {
-    background-color: #0056b3;
+    background-color: #933b35;
   }
   
   /* Styling the form labels */
@@ -94,7 +94,7 @@
   /* Focus state for form fields */
   form input:focus,
   form textarea:focus {
-    border-color: #007bff;
+    border-color: #933b35;
     outline: none;
   }
   
@@ -130,5 +130,5 @@
   .skills strong,
   .experience strong {
     font-size: 18px;
-    color: #007bff;
+    color: #933b35;
   }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Packer, Document, Paragraph } from "docx";
 import { saveAs } from "file-saver";
-
+import "./Previewcontainer.css";
 function Templates() {
   const [formData, setFormData] = useState({
     name: "",
