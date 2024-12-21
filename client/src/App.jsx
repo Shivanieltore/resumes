@@ -5,6 +5,7 @@ import AboutUs from "./components/AboutUs";
 import LoginPage from "./components/LoginPage"; // Create LoginPage.jsx
 import "./App.css";
 import HomePage from "./components/HomePage";
+import Templates from "./components/Templates";
 
 function App() {
   return (
@@ -21,9 +22,9 @@ function App() {
                   <h1>Create Job-Winning Resumes in Minutes</h1>
                   <p>
                     Stand out from the crowd with expertly designed templates.
-                    Choose from a variety of modern, professional layouts crafted
-                    by career experts. Quickly personalize with pre-filled skills
-                    and job-specific phrases.
+                    Choose from a variety of modern, professional layouts
+                    crafted by career experts. Quickly personalize with
+                    pre-filled skills and job-specific phrases.
                   </p>
                   <p>
                     <strong>Get hired faster, smarter, and stress-free.</strong>
@@ -37,6 +38,7 @@ function App() {
           {/* Login Page */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/personal-info" element={<Templates />} />
         </Routes>
       </div>
     </Router>

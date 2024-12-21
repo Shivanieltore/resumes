@@ -1,8 +1,8 @@
 import React from "react";
 import "./AboutUs.css";
-import placeholder1 from "../assets/placeholder1.png";
-import placeholder2 from "../assets/placeholder2.png";
-import placeholder3 from "../assets/placeholder3.png";
+import placeholder1 from "../assets/placeholder1.jpg";
+import placeholder2 from "../assets/placeholder2.jpg";
+import placeholder3 from "../assets/placeholder3.jpg";
 
 const AboutUs = () => {
   return (
@@ -10,7 +10,7 @@ const AboutUs = () => {
       <h2>About Us</h2>
       <div className="team">
         <div className="team-member">
-          <img src={placeholder1} alt="V. Drithi" />
+          <img src={placeholder3} alt="V. Drithi" />
           <p>V. Drithi</p>
         </div>
         <div className="team-member">
@@ -18,7 +18,7 @@ const AboutUs = () => {
           <p>E. Shivani</p>
         </div>
         <div className="team-member">
-          <img src={placeholder3} alt="V. Satya Sri" />
+          <img src={placeholder1} alt="V. Satya Sri" />
           <p>V. Satya Sri</p>
         </div>
       </div>
