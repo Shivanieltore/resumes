@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Packer, Document, Paragraph } from "docx";
 import { saveAs } from "file-saver";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import "./Previewcontainer.css";
 function Templates() {
   const [formData, setFormData] = useState({
@@ -44,6 +46,15 @@ function Templates() {
 Packer.toBlob(doc).then((blob) => {
   saveAs(blob, "ResumePreview.docx");
 });
+};
+const generatePDF = () => {
+  const input = document.getElementById('resume');
+  html2canvas(input).then((canvas) => {
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF();
+    pdf.addImage(imgData, 'PNG', 0, 0);
+    pdf.save('resume.pdf');
+  });
 };
 
 return (
@@ -185,9 +196,9 @@ return (
   </div>
 
   {/* Download Button */}
-  <button onClick={handleDownloadDocx} className="download-btn">
+  <button onClick={handleDownloadDocx} className="download-btn"></button>
     Download as DOCX
-  </button>
+  <button onClick={generatePDF}>Download PDF</button>
 </div>
 );
 }
