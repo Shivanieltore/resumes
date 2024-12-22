@@ -43,9 +43,10 @@ function Templates() {
         },
       ],
     });
-Packer.toBlob(doc).then((blob) => {
-  saveAs(blob, "ResumePreview.docx");
-});
+    const downloadWord = () => {
+      const blob = new Blob([JSON.stringify(formData)], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+      saveAs(blob, 'resume.docx');
+    };
 };
 const generatePDF = () => {
   const input = document.getElementById('resume');
@@ -194,11 +195,9 @@ return (
       </p>
     </div>
   </div>
-
   {/* Download Button */}
-  <button onClick={handleDownloadDocx} className="download-btn"></button>
-    Download as DOCX
-  <button onClick={generatePDF}>Download PDF</button>
+  <button onClick={handleDownloadDocx} className="download-btn" >Download Word</button>
+  <button onClick={generatePDF} className="download-btn">Download PDF</button>
 </div>
 );
 }
