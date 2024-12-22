@@ -43,20 +43,30 @@ function Templates() {
         },
       ],
     });
-    const downloadWord = () => {
-      const blob = new Blob([JSON.stringify(formData)], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-      saveAs(blob, 'resume.docx');
-    };
+Packer.toBlob(doc).then((blob) => {
+  saveAs(blob, "ResumePreview.docx");
+});
 };
 const generatePDF = () => {
   const input = document.getElementById('resume');
+  if (!input) {
+    console.error('Element with id "resume" not found.');
+    return;
+  }
+  
   html2canvas(input).then((canvas) => {
     const imgData = canvas.toDataURL('image/png');
     const pdf = new jsPDF();
-    pdf.addImage(imgData, 'PNG', 0, 0);
-    pdf.save('resume.pdf');
+    const width = pdf.internal.pageSize.getWidth();
+    const height = (canvas.height * width) / canvas.width;
+    pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+    pdf.save('Resume.pdf');
+  }).catch((error) => {
+    console.error('Error generating PDF:', error);
   });
 };
+
+
 
 return (
 <div className="templates-container">
@@ -156,6 +166,7 @@ return (
     </form>
 
     {/* Preview Section */}
+    <div id="resume" className="preview-container">
     <div className="preview-container">
       <h2>Preview</h2>
       <p>
@@ -195,8 +206,10 @@ return (
       </p>
     </div>
   </div>
+  </div>
+
   {/* Download Button */}
-  <button onClick={handleDownloadDocx} className="download-btn" >Download Word</button>
+  <button onClick={handleDownloadDocx} className="download-btn">Download Word</button>
   <button onClick={generatePDF} className="download-btn">Download PDF</button>
 </div>
 );
