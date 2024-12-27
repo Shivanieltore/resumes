@@ -11,7 +11,7 @@ function HomePage() {
           <div className="dropdown">
             <button className="dropbtn">Resume</button>
             <div className="dropdown-content">
-              <Link to="/templates">Templates</Link>
+              <Link to="/templateselector">Templates</Link>
               <Link to="/personal-info">Personal Info</Link>
             </div>
           </div>
@@ -32,29 +32,29 @@ function HomePage() {
           <div className="image-box">
             <Link to="/templates">
               <img
-                src="https://via.placeholder.com/300"
+                src="https://i.etsystatic.com/47138977/r/il/8d85ec/5371571644/il_570xN.5371571644_rotw.jpg"
                 alt="Sample Resume 1"
               />
             </Link>
           </div>
           <div className="image-box">
-            <img src="https://via.placeholder.com/300" alt="Sample Resume 2" />
+            <img src="https://cdn.venngage.com/template/thumbnail/310/8df44329-87c2-4907-801d-8f335745a2b0.webp" alt="Sample Resume 2" />
           </div>
           <div className="image-box">
-            <img src="https://via.placeholder.com/300" alt="Sample Resume 3" />
+            <img src="https://marketplace.canva.com/EAFREuQ-khk/1/0/1131w/canva-cream-blue-aesthetic-business-cv-resume-vo34MmN7fU0.jpg" alt="Sample Resume 3" />
           </div>
         </div>
 
         <h1 className="sample-cv-title">Sample CV</h1>
         <div className="image-grid">
           <div className="image-box">
-            <img src="https://via.placeholder.com/300" alt="Sample CV 1" />
+            <img src="https://cdn.enhancv.com/predefined-examples/Xq1ZSNvefc8T6ztC2DcYJxadFzWxrS5qQfQD9yAE/image.png" alt="Sample CV 1" />
           </div>
           <div className="image-box">
-            <img src="https://via.placeholder.com/300" alt="Sample CV 2" />
+            <img src="https://cdn.enhancv.com/predefined-examples/O1uZz1fgObjUID44d3eBaGyxRlii4l2IOlgA1qYV/image.png" alt="Sample CV 2" />
           </div>
           <div className="image-box">
-            <img src="https://via.placeholder.com/300" alt="Sample CV 3" />
+            <img src="https://cdn.enhancv.com/predefined-examples/ODZVlPZYcH19GrpQwczhgCJICeB1Y5zh81Pj1wVI/image.png" alt="Sample CV 3" />
           </div>
         </div>
       </section>
