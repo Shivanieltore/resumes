@@ -2,45 +2,43 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 
-function LoginPage() {
+function LoginPage({ isRegisteringInitially = false }) {
+  const [isRegistering, setIsRegistering] = useState(isRegisteringInitially);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isRegistering, setIsRegistering] = useState(false); // Toggle between login and registration
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    console.log("Email:", email);
-    console.log("Password:", password);
-  
+    const endpoint = isRegistering ? "register" : "login";
     try {
-      const response = await fetch("http://localhost:3001/login", {
+      const response = await fetch(`http://localhost:3001/${endpoint}`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-  
+
       const data = await response.json();
-  
-      console.log("API Response:", data); // Log the backend response
-  
+
       if (response.ok) {
-        console.log("Login successful:", data.message);
-        localStorage.setItem("token", data.token); // Assuming token is returned
-        navigate("/home");
+        console.log(
+          isRegistering ? "Registration successful" : "Login successful",
+          data.message
+        );
+        if (!isRegistering) {
+          localStorage.setItem("token", data.token);
+          navigate("/home");
+        } else {
+          navigate("/login"); // Redirect to login after successful signup
+        }
       } else {
-        console.log("Error data:", data);
-        setErrorMessage(data.message); // Display the error message
+        setErrorMessage(data.message);
       }
     } catch (error) {
-      console.error("Error occurred during login:", error);
       setErrorMessage("An error occurred. Please try again.");
     }
-  };  
+  };
 
   return (
     <div className="login-page">
@@ -95,6 +93,8 @@ function LoginPage() {
 }
 
 export default LoginPage;
+
+
 
 
 

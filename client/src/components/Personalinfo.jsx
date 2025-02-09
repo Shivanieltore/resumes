@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Packer, Document, Paragraph } from "docx";
-import { saveAs } from "file-saver";
-import jsPDF from "jspdf";
+import * as HTMLDocx from "html-docx-js/dist/html-docx"; // Importing html-docx-js
 import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import "./Previewcontainer.css";
-import axios from "axios";
+import template1 from "../assets/template1.png";
+import template2 from "../assets/template2.png";
+import template3 from "../assets/template3.png";
 
 function Personalinfo({ selectedTemplate }) {
   const [formData, setFormData] = useState({
@@ -18,217 +19,143 @@ function Personalinfo({ selectedTemplate }) {
     bio: "",
     achievements: "",
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [profileImage, setProfileImage] = useState(null);
 
-  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const templateImages = [template1, template2, template3];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    if (name === "email" && !validateEmail(value)) {
-      alert("Please enter a valid email address.");
-    }
-
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => setProfileImage(event.target.result);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Generate Word Document
   const handleDownloadDocx = () => {
-    const doc = new Document({
-      sections: [
-        {
-          children: [
-            new Paragraph(`Name: ${formData.name}`),
-            new Paragraph(`Email: ${formData.email}`),
-            new Paragraph(`Phone: ${formData.phone}`),
-            new Paragraph(`Address: ${formData.address}`),
-            new Paragraph(`Work Experience: ${formData.experience}`),
-            new Paragraph(`LinkedIn: ${formData.linkedin}`),
-            new Paragraph(`GitHub: ${formData.github}`),
-            new Paragraph(`Bio: ${formData.bio}`),
-            new Paragraph(`Achievements: ${formData.achievements}`),
-          ],
-        },
-      ],
-    });
-    Packer.toBlob(doc).then((blob) => {
-      saveAs(blob, "ResumePreview.docx");
-    });
+    const docxContent = `
+      <h2>${formData.name || "Your Name"}</h2>
+      <p><strong>Email:</strong> ${formData.email || "Your Email"}</p>
+      <p><strong>Phone:</strong> ${formData.phone || "Your Phone"}</p>
+      <p><strong>Address:</strong> ${formData.address || "Your Address"}</p>
+      <p><strong>Experience:</strong> ${formData.experience || "Your Experience"}</p>
+      <p><strong>LinkedIn:</strong> ${formData.linkedin || "Your LinkedIn"}</p>
+      <p><strong>GitHub:</strong> ${formData.github || "Your GitHub"}</p>
+      <p><strong>Bio:</strong> ${formData.bio || "Your Bio"}</p>
+      <p><strong>Achievements:</strong> ${formData.achievements || "Your Achievements"}</p>
+    `;
+
+    // Convert HTML content to .docx
+    const docxBlob = HTMLDocx.asBlob(docxContent);
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(docxBlob);
+    link.download = "Resume.docx";
+    link.click();
   };
 
   const generatePDF = () => {
-    const input = document.getElementById("resume");
-    if (!input) {
-      console.error('Element with id "resume" not found.');
+    if (selectedTemplate == null || selectedTemplate >= templateImages.length) {
+      alert("Please select a valid template before downloading!");
       return;
     }
 
-    html2canvas(input, { scale: 2 })
-      .then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jsPDF();
-        const width = pdf.internal.pageSize.getWidth();
-        const height = (canvas.height * width) / canvas.width;
-        pdf.addImage(imgData, "PNG", 0, 0, width, height);
-        pdf.save("Resume.pdf");
-      })
-      .catch((error) => {
-        console.error("Error generating PDF:", error);
-      });
-  };
+    const input = document.createElement("div");
+    input.style.position = "absolute";
+    input.style.left = "-9999px"; // Hide it offscreen
+    input.style.width = "800px"; // Adjust width as needed
 
-  const handleSubmit = async () => {
-    if (!selectedTemplate) {
-      alert("Please select a template before submitting!");
-      return;
-    }
+    const templateImage = templateImages[selectedTemplate - 1];
+    const resumeContent = `
+      <div style="position: relative; font-family: Arial, sans-serif;">
+        <img src="${templateImage}" alt="Resume Template" style="width: 100%; height: auto;" />
+        <div style="position: absolute; top: 50px; left: 50px;">
+          <div style="
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f0f0;
+          ">
+            <img src="${profileImage || ""}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+        </div>
+        <div style="position: absolute; top: 50px; right: 50px; width: 300px; color: #000;">
+          <h2 style="margin: 0; font-size: 26px; font-weight: bold;">${formData.name || "Your Name"}</h2>
+          <p style="margin: 10px 0; font-size: 18px; font-weight: bold;"><strong>Email:</strong> ${formData.email || "Your Email"}</p>
+          <p style="margin: 10px 0; font-size: 18px; font-weight: bold;"><strong>Phone:</strong> ${formData.phone || "Your Phone"}</p>
+          <p style="margin: 10px 0; font-size: 18px; font-weight: bold;"><strong>Address:</strong> ${formData.address || "Your Address"}</p>
+          <p style="margin: 10px 0; font-size: 18px; font-weight: bold;"><strong>Experience:</strong> ${formData.experience || "Your Experience"}</p>
+          <p style="margin: 10px 0; font-size: 18px; font-weight: bold;"><strong>LinkedIn:</strong> ${formData.linkedin || "Your LinkedIn"}</p>
+          <p style="margin: 10px 0; font-size: 18px; font-weight: bold;"><strong>GitHub:</strong> ${formData.github || "Your GitHub"}</p>
+          <p style="margin: 10px 0; font-size: 18px; font-weight: bold;"><strong>Bio:</strong> ${formData.bio || "Your Bio"}</p>
+          <p style="margin: 10px 0; font-size: 18px; font-weight: bold;"><strong>Achievements:</strong> ${formData.achievements || "Your Achievements"}</p>
+        </div>
+      </div>
+    `;
 
-    if (!formData.name || !formData.email || !formData.phone) {
-      alert("Name, Email, and Phone are required fields!");
-      return;
-    }
+    input.innerHTML = resumeContent;
+    document.body.appendChild(input);
 
-    setIsLoading(true);
-
-    try {
-      const response = await axios.post("http://127.0.0.1:5000/generate_resume", {
-        ...formData,
-        templateId: selectedTemplate,
-      });
-
-      alert("Resume generated successfully!");
-      console.log("Resume generated:", response.data);
-    } catch (error) {
-      console.error("Error generating resume:", error);
-      alert("Failed to generate resume. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
+    html2canvas(input, { scale: 2 }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      const width = pdf.internal.pageSize.getWidth();
+      const height = (canvas.height * width) / canvas.width;
+      pdf.addImage(imgData, "PNG", 0, 0, width, height);
+      pdf.save("Resume.pdf");
+      document.body.removeChild(input);
+    });
   };
 
   return (
-    <div className="templates-container">
-      <div className="form-preview-wrapper">
-        {/* Form Section */}
-        <form className="form-container">
-          <label>
-            Name:
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Enter your name"
-            />
-          </label>
-          <label>
-            Email:
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-            />
-          </label>
-          <label>
-            Phone:
-            <input
-              type="text"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Enter your phone number"
-            />
-          </label>
-          <label>
-            Address:
-            <input
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              placeholder="Enter your address"
-            />
-          </label>
-          <label>
-            Work Experience:
-            <input
-              type="text"
-              name="experience"
-              value={formData.experience}
-              onChange={handleChange}
-              placeholder="Any Work Experience?"
-            />
-          </label>
-          <label>
-            LinkedIn:
-            <input
-              type="url"
-              name="linkedin"
-              value={formData.linkedin}
-              onChange={handleChange}
-              placeholder="Enter your LinkedIn profile URL"
-            />
-          </label>
-          <br></br>
-          <label>
-            GitHub:
-            <input
-              type="url"
-              name="github"
-              value={formData.github}
-              onChange={handleChange}
-              placeholder="Enter your GitHub profile URL"
-            />
-          </label>
-          <label>
-            Bio:
-            <textarea
-              name="bio"
-              value={formData.bio}
-              onChange={handleChange}
-              placeholder="Write a short bio"
-            ></textarea>
-          </label>
-          <label>
-            Achievements:
-            <textarea
-              type="text"
-              name="achievements"
-              value={formData.achievements}
-              onChange={handleChange}
-              placeholder="Mention your achievement"
-            ></textarea>
-          </label>
-        </form>
+    <div className="preview-container">
+      <h2>Enter Your Details</h2>
 
-        {/* Preview Section */}
-        <div id="resume" className="preview-container">
-          <h2>Preview</h2>
-          <p><strong>Name:</strong> {formData.name || "Your name will appear here"}</p>
-          <p><strong>Email:</strong> {formData.email || "Your email will appear here"}</p>
-          <p><strong>Phone:</strong> {formData.phone || "Your phone number will appear here"}</p>
-          <p><strong>Address:</strong> {formData.address || "Your address will appear here"}</p>
-          <p><strong>Work Experience:</strong> {formData.experience || "Your work experience will appear here"}</p>
-          <p><strong>LinkedIn:</strong> {formData.linkedin || "Your LinkedIn profile will appear here"}</p>
-          <p><strong>GitHub:</strong> {formData.github || "Your GitHub profile will appear here"}</p>
-          <p><strong>Bio:</strong> {formData.bio || "Your bio will appear here"}</p>
-          <p><strong>Achievements:</strong> {formData.achievements || "Your achievements will appear here"}</p>
-        </div>
-      </div>
+      <form>
+        <label htmlFor="profile">Upload Profile Image:</label>
+        <input id="profile" type="file" accept="image/*" onChange={handleImageUpload} />
+        <label htmlFor="name">Name:</label>
+        <input id="name" type="text" name="name" value={formData.name} onChange={handleChange} />
+        <label htmlFor="email">Email:</label>
+        <input id="email" type="email" name="email" value={formData.email} onChange={handleChange} />
+        <label htmlFor="phone">Phone:</label>
+        <input id="phone" type="text" name="phone" value={formData.phone} onChange={handleChange} />
+        <label htmlFor="address">Address:</label>
+        <input id="address" type="text" name="address" value={formData.address} onChange={handleChange} />
+        <label htmlFor="experience">Experience:</label>
+        <textarea id="experience" name="experience" value={formData.experience} onChange={handleChange}></textarea>
+        <label htmlFor="linkedin">LinkedIn:</label>
+        <input id="linkedin" type="url" name="linkedin" value={formData.linkedin} onChange={handleChange} />
+        <label htmlFor="github">GitHub:</label>
+        <input id="github" type="url" name="github" value={formData.github} onChange={handleChange} />
+        <label htmlFor="bio">Bio:</label>
+        <textarea id="bio" name="bio" value={formData.bio} onChange={handleChange}></textarea>
+        <label htmlFor="achievements">Achievements:</label>
+        <textarea id="achievements" name="achievements" value={formData.achievements} onChange={handleChange}></textarea>
+      </form>
 
-      {/* Download Button */}
-      <button onClick={handleDownloadDocx} className="download-btn">Download Word</button>
-      <button onClick={generatePDF} className="download-btn">Download PDF</button>
-      <button onClick={handleSubmit} className="submit-btn" disabled={isLoading}>
-        {isLoading ? "Generating..." : "Generate Resume"}
+      <button className="download-btn" onClick={generatePDF}>
+        Download as PDF
       </button>
+      <button onClick={handleDownloadDocx}>Download as Word</button>
     </div>
   );
 }
 
 export default Personalinfo;
+
+
+
 

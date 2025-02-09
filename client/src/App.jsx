@@ -2,27 +2,31 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import AboutUs from "./components/AboutUs";
-import LoginPage from "./components/LoginPage"; 
+import LoginPage from "./components/LoginPage";
 import HomePage from "./components/HomePage";
 import Personalinfo from "./components/Personalinfo";
-import Templateselector from "./components/Templateselector"; 
+import Templateselector from "./components/Templateselector";
+import Signup from "./components/Signup";
+import CvTemplateSelector from "./components/CvTemplateSelector"; // Import the new CvTemplateSelector
 import "./App.css";
 
 function App() {
-  const [selectedTemplate, setSelectedTemplate] = useState(null); // State to hold the selected template
+  const [selectedTemplate, setSelectedTemplate] = useState(null); // State to hold the selected resume template
+  const [selectedCvTemplate, setSelectedCvTemplate] = useState(null); // State to hold the selected CV template
 
   return (
     <Router>
       <div className="app">
         <Header />
         <Routes>
+          {/* Home Page */}
           <Route
             path="/"
             element={
               <main className="content">
                 <section className="hero">
                   <div className="hero-text slide-in">
-                    < h1 id="head">CREATE JOB-WINNING RESUME IN MINUTES</h1>
+                    <h1 id="head">CREATE JOB-WINNING RESUMES IN MINUTES</h1>
                     <h3>
                       Stand out from the crowd with expertly designed templates.
                       Choose from a variety of modern, professional layouts
@@ -49,19 +53,59 @@ function App() {
 
           {/* Login Page */}
           <Route path="/login" element={<LoginPage />} />
+
+          {/* Signup Page */}
+          <Route path="/signup" element={<Signup />} />
+
+          {/* Home Page */}
           <Route path="/home" element={<HomePage />} />
-          
-          {/* Personal Info Page */}
-          <Route path="/personal-info" element={<Personalinfo />} />
-          
-          {/* Template Selector Page */}
+
+          {/* Template Selector Page (for Resume) */}
           <Route
             path="/templateselector"
+            element={<Templateselector onSelectTemplate={setSelectedTemplate} />}
+          />
+
+          {/* CV Template Selector Page */}
+          <Route
+            path="/cvtemplateselector"
+            element={<CvTemplateSelector onSelectTemplate={setSelectedCvTemplate} />}
+          />
+
+          {/* Personal Info Page for Resume */}
+          <Route
+            path="/personal-info"
             element={
-              !selectedTemplate ? (
-                <Templateselector onSelectTemplate={setSelectedTemplate} /> // Corrected the component name
+              selectedTemplate ? (
+                <Personalinfo selectedTemplate={selectedTemplate} />
               ) : (
-                <Personalinfo selectedTemplate={selectedTemplate} setSelectedTemplate={setSelectedTemplate} />
+                <div className="no-template-selected">
+                  <h2>Please select a template first!</h2>
+                  <button
+                    onClick={() => (window.location.href = "/templateselector")}
+                  >
+                    Go to Template Selector
+                  </button>
+                </div>
+              )
+            }
+          />
+
+          {/* CV Maker Page */}
+          <Route
+            path="/cv-maker"
+            element={
+              selectedCvTemplate ? (
+                <Personalinfo selectedTemplate={selectedCvTemplate} />
+              ) : (
+                <div className="no-template-selected">
+                  <h2>Please select a CV template first!</h2>
+                  <button
+                    onClick={() => (window.location.href = "/cvtemplateselector")}
+                  >
+                    Go to CV Template Selector
+                  </button>
+                </div>
               )
             }
           />
@@ -72,6 +116,9 @@ function App() {
 }
 
 export default App;
+
+
+
 
 
 
