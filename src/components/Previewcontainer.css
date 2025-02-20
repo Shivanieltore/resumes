@@ -1,0 +1,124 @@
+.preview-container {
+  margin-top: 20px;
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.preview-container h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.preview-container p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 12px 0;
+  background-color: #ffffff;
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  word-wrap: break-word;
+}
+
+.preview-container p strong {
+  font-weight: bold;
+  color: #933b35;
+  font-size: 18px;
+}
+
+.preview-container p:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.preview-container p:hover {
+  background-color: #e7f3ff;
+  border-color: #4caf50;
+  cursor: pointer;
+}
+
+.download-btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #933b35;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  text-align: center;
+  width: 100%;
+}
+
+.download-btn:hover {
+  background-color: #933b35;
+}
+
+form label {
+  display: block;
+  margin-bottom: 30px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: #933b35;
+  outline: none;
+}
+
+.contact-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.contact-info .section {
+  width: 48%;
+}
+
+.skills,
+.experience {
+  margin-bottom: 20px;
+}
+
+.skills ul,
+.experience ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skills li,
+.experience li {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.skills strong,
+.experience strong {
+  font-size: 18px;
+  color: #933b35;
+}
