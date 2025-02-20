@@ -1,0 +1,46 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #8C2C2C;
+  color: #FFF;
+  padding: 10px 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Flexbox for the Logo and Title */
+.header-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo Styling */
+.logo {
+  width: 50px; /* Adjust size as needed */
+  height: auto;
+  margin-right: 15px;
+}
+
+/* Title Styling */
+.title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+/* Login Button */
+.login-button  {
+  background-color: #FFF;
+  color: #8C2C2C;
+  border: none;
+  padding: 8px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-button button:hover {
+  background-color: #f2f2f2;
+}
+
+  

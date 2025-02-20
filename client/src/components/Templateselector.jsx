@@ -1,6 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./TemplateSelector.css";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
 import template1 from "../assets/template1.png";
 import template2 from "../assets/template2.png";
 import template3 from "../assets/template3.png";
@@ -11,7 +11,7 @@ import template7 from "../assets/template7.png";
 import template8 from "../assets/template8.png";
 
 const Templateselector = ({ onSelectTemplate }) => {
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate();
 
   const templates = [
     { id: 1, name: "Template 1", image: template1 },
@@ -25,8 +25,9 @@ const Templateselector = ({ onSelectTemplate }) => {
   ];
 
   const handleTemplateSelect = (id) => {
-    onSelectTemplate(id); // Update selected template in parent state
-    navigate("/personal-info"); // Redirect to Personalinfo page
+    onSelectTemplate(id);
+    localStorage.setItem("selectedTemplate", id); // Save selected template in local storage
+    navigate("/personal-info"); // Always navigate to PersonalInfo
   };
 
   return (
@@ -49,7 +50,3 @@ const Templateselector = ({ onSelectTemplate }) => {
 };
 
 export default Templateselector;
-
-
-
-

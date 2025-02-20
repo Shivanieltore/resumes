@@ -1,0 +1,88 @@
+.login-page body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5e7d5;
+}
+
+.login-page .login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-page .login-box {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 360px;
+}
+
+.login-page .login-box h1 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.login-page .login-box p {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  height: 50px;
+}
+
+.login-page form {
+    display: flex;
+    flex-direction: column;    
+    background: rgba(57, 57, 57, 0.519);
+    backdrop-filter: blur(7px);
+    padding: 30px;
+    width: 300px;
+    border-radius: 10px;
+    color: #fff;
+    border: 1px solid rgba(213, 212, 212, 0.558);
+}
+
+.login-page label {
+  font-size: 0.9rem;
+  color: #933b35;
+  margin-bottom: 5px;
+}
+
+.login-page input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.login-page .options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.login-page .options a {
+  color: #933b35;
+  text-decoration: none;
+}
+
+.login-page button.sign-in {
+  background-color: #933b35;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.login-page button.sign-in:hover {
+  background-color: #d46a62;
+}
+  
+  
