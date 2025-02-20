@@ -30,7 +30,7 @@ function HomePage() {
         <div className="image-grid">
           {/* Placeholder images */}
           <div className="image-box">
-            <Link to="/templates">
+            <Link to="/templateselector">
               <img 
                 src="https://marketplace.canva.com/EAFzSzKZZsg/1/0/1131w/canva-modern-minimalist-cv-resume-oTDK4_esRiU.jpg"
                 alt="Sample Resume 1"

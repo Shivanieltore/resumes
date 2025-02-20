@@ -1,10 +1,4 @@
 {
-<<<<<<< HEAD
-  "dependencies": {
-    "express": "^4.21.2",
-    "hbs": "^4.2.0",
-    "mongoose": "^8.9.2"
-=======
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -60,6 +54,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
->>>>>>> 675b384 (Initial commit)
   }
 }
